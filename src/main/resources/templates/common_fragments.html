@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+</head>
+<body>
+
+ <nav th:fragment="header" class="navbar navbar-dark bg-primary">
+    <a href="/employee/new" class="navbar-brand"> New Employee</a> <br><br>
+    <a href="/employee/all" class="navbar-brand"> All Employees</a><br><br>
+    <a href="/team/new" class="navbar-brand"> New Team</a> <br><br>
+    <a href="/team/all" class="navbar-brand"> All Teams</a><br><br>
+ </nav>
+
+ <div th:fragment="search" class="form-inline col-md-4">
+     <input class="form-control mb-2 mr-sm-2" type="search" id="search"  value="">
+     <button class="btn btn-primary mb-2" onclick="SubmitRequest()" type="submit">Search</button>
+ </div>
+
+
+</body>
+</html>

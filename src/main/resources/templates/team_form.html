@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Team</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .form-error {
+            background-color: #ff5050;
+        }
+    </style>
+
+</head>
+<body>
+    <nav th:replace = "common_fragments::header"></nav>
+
+    <form id="teamForm" method="post" th:object="${teamForm}">
+
+        <div class="form-group col-md-4">
+            <label for="teamName">Team Name: </label>
+            <input id="teamName" class="form-control"  type="text" th:name="teamName" th:value="*{teamName}" th:readonly="*{teamName != null} and !${#fields.hasErrors('*')}"/>
+            <p th:if="${#fields.hasErrors('teamName')}" class="form-error" th:errors="*{teamName}">Incorrect date</p>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=projectName>Project Name: </label>
+            <input id="projectName" class="form-control" type="text"  th:name="projectName"  th:value="*{projectName}" th:readonly="*{projectName != null} and !${#fields.hasErrors('*')}"/>
+            <p th:if="${#fields.hasErrors('projectName')}" class="form-error" th:errors="*{projectName}">Incorrect date</p>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=projectOwnerId>PO Employee: </label>
+            <select id="projectOwnerId" class="form-control"  th:field="*{projectOwnerId}">
+                <option th:each="e : ${poEmployees}" th:value="${e.id}" th:text="${e.firstName} + ' ' + ${e.lastName}" th:selected="'${#lists.contains(' + ${poEmployees} + ',' + ${e} + ')}'"> 7-UP </option>
+            </select>
+            <p th:if="${#fields.hasErrors('projectOwnerId')}" class="form-error" th:errors="*{projectOwnerId}">Incorrect date</p>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=projectManagerId>PM Employee: </label>
+            <select id="projectManagerId" class="form-control" th:field="*{projectManagerId}">
+                <option th:each="e : ${pmEmployees}" th:value="${e.id}" th:text="${e.firstName} + ' ' + ${e.lastName}" th:selected="'${#lists.contains(' + ${pmEmployees} + ',' + ${e} + ')}'"> 7-UP </option>
+            </select>
+            <p th:if="${#fields.hasErrors('projectManagerId')}" class="form-error" th:errors="*{projectManagerId}">Incorrect date</p>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=scrumMasterId>Scrum Master: </label>
+            <select id="scrumMasterId" class="form-control" th:field="*{scrumMasterId}">
+                <option th:value="Null" th:text="' '"></option>
+                <option th:each="e : ${scrummasterEmployees}" th:value="${e.id}" th:text="${e.firstName} + ' ' + ${e.lastName}"> 7-UP </option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <input class="btn btn-primary" type="submit" value="Submit"/>
+        </div>
+    </form>
+</body>
+</html>

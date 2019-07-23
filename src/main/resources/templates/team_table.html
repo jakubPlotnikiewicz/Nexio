@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teams</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript">
+        var SubmitRequest = function(){
+            console.log('test');
+            var searchValue = document.getElementById("search").value;
+            $("#searchable").load("all?search=" +searchValue.trim()  + " #searchable");
+        }
+    </script>
+
+</head>
+<body>
+    <nav th:replace = "common_fragments::header"></nav>
+    <br>
+    <div th:replace = "common_fragments::search"></div>
+
+    <table id="searchable" class="table">
+        <thead>
+        <tr>
+            <th scope="col">Team Name</th>
+            <th scope="col">Project Name</th>
+            <th scope="col">PO</th>
+            <th scope="col">PM</th>
+            <th scope="col">Scrum Master</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${teams}" scope="row">
+            <td>
+                <div th:text="${t.teamName}">Pepsi</div>
+            </td>
+            <td>
+                <div th:text="${t.projectName}">Coca-Cola</div>
+            </td>
+            <td>
+                <div th:text="${t.projectOwner}">Coca-Cola</div>
+            </td>
+            <td>
+                <div th:text="${t.projectManager}">Coca-Cola</div>
+            </td>
+            <td>
+                <div th:text="${t.scrumMaster}">Coca-Cola</div>
+            </td>
+            <td>
+                <a class="btn btn-sm btn-primary" th:href="${t.id}"> Edit </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

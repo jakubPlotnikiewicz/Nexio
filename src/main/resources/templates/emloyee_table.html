@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript">
+        var SubmitRequest = function(){
+            console.log("test");
+            var searchValue = document.getElementById("search").value;
+            $("#searchable").load("all?search=" +searchValue.trim()  + " #searchable");
+        }
+    </script>
+
+</head>
+<body>
+    <nav th:replace = "common_fragments::header"></nav>
+    <br>
+    <div th:replace = "common_fragments::search">
+    </div>
+
+    <table id = "searchable" class="table">
+        <thead>
+        <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Position</th>
+            <th scope="col">Competences</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Supervisor</th>
+            <th scope="col">Teams</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="e : ${employees}" scope="row">
+            <td>
+                <div th:text="${e.firstName}">Pepsi</div>
+            </td>
+            <td>
+                <div th:text="${e.lastName}">Coca-Cola</div>
+            </td>
+            <td>
+                <div th:text="${e.position}">Coca-Cola</div>
+            </td>
+            <td>
+                <div th:text="${e.competences.getCompetences()}">Coca-Cola</div>
+            </td>
+            <td>
+                <div th:text="${e.salary}">Coca-Cola</div>
+            </td>
+            <td>
+                <div th:text="${e.supervisor}">Coca-Cola</div>
+            </td>
+            <td>
+                <div th:each="t : ${e.teams}"  th:text="${t}">Coca-Cola</div>
+            </td>
+            <td>
+                <a class="btn btn-sm btn-primary" th:href="${e.id}"> Edit </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

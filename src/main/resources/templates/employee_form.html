@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Employee</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .form-error {
+            background-color: #ff5050;
+        }
+    </style>
+
+</head>
+<body>
+    <nav th:replace = "common_fragments::header"></nav>
+    <form id="employeeForm" method="post" th:object="${employeeForm}">
+
+        <div class="form-group col-md-4">
+            <label for="firstName">First Name: </label>
+            <input id="firstName" class="form-control" type="text" th:name="firstName" th:value="*{firstName}" th:readonly="*{firstName != null} and !${#fields.hasErrors('*')}"/>
+            <p th:if="${#fields.hasErrors('firstName')}" class="form-error" th:errors="*{firstName}">Incorrect date</p>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=lastName>Last Name: </label>
+            <input id="lastName" class="form-control" type="text"  th:name="lastName"  th:value="*{lastName}" th:readonly="*{lastName != null} and !${#fields.hasErrors('*')}" />
+            <p th:if="${#fields.hasErrors('lastName')}" class="form-error" th:errors="*{lastName}">Incorrect date</p>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=position>Postion: </label>
+            <select id="position" class="form-control" th:field="*{position}">
+                <option th:each="p : ${T(com.nexio.recruitment.model.Employee.Position).values()}" th:value="${p}" th:text="${p}"> 7-UP </option>
+            </select>
+            <p th:if="${#fields.hasErrors('position')}" class="form-error" th:errors="*{position}">Incorrect date</p>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=salary>Salary: </label>
+            <input id="salary" class="form-control" type="number" step="any" th:name="salary"  th:value="*{salary}"/>
+            <p th:if="${#fields.hasErrors('salary')}" class="form-error" th:errors="*{salary}">Incorrect date</p>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=supervisorId>Supervisor: </label>
+            <select id="supervisorId" class="form-control" th:field="*{supervisorId}">
+                <option th:value="Null" th:text="' '"></option>
+                <option th:each="e : ${pmEmployees}"  th:value="${e.id}" th:text="${e.firstName} + ' ' + ${e.lastName}"> 7-UP </option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for=teams>Team: </label>
+            <select class="form-control"id="teams"  th:field="*{teams}" multiple>
+                <option th:each="t : ${teams}" th:value="${t.id}" th:text="${t.teamName}" th:selected="'${#lists.contains(' + ${employeeForm.teams} + ',' + ${t.id} + ')}'"> 7-UP </option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <input class="btn btn-primary" type="submit" value="Submit"/>
+        </div>
+    </form>
+</body>
+</html>
